@@ -99,12 +99,13 @@
       </Transition>
     </div>
 
+    <!-- saved perfumes list -->
     <div class="savedPerfumesWrapper" v-if="savedPerfumesVisible">
       <ul v-if="Array.isArray(savedPerfumes) && savedPerfumes.length > 0">
         <li
           v-for="item in savedPerfumes"
           :key="item.id"
-          @click="router.push(`/singlePerfum/${item.id}`)"
+          @click="navigateToSinglePerfume(item.id)"
         >
           <div class="singlePerfumeImage">
             <img :src="item.image" alt="" />
@@ -183,6 +184,11 @@ function updateSavedPerfumes() {
 
 function navigation(link) {
   window.location.href = link;
+}
+
+function navigateToSinglePerfume(id) {
+  savedPerfumesVisible.value = false;
+  router.push(`/singlePerfum/${id}`);
 }
 
 watch(savedPerfumes, (newVal) => {

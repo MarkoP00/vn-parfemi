@@ -7,10 +7,12 @@
     :popupTitle="popupTitle"
     :popupMessage="popupMessage"
     @popup-cancel="handlePopup"
-    @popup-confirm="() => handleDelete(parfumeDeleteId)"></GlobalPopup>
+    @popup-confirm="() => handleDelete(parfumeDeleteId)"
+  ></GlobalPopup>
   <TermsOfUse
     v-if="termsOfUseVisible"
-    @close-terms="toggleTermsOfUse"></TermsOfUse>
+    @close-terms="toggleTermsOfUse"
+  ></TermsOfUse>
 
   <GlobalSpinner v-if="formIsSubmiting"></GlobalSpinner>
   <section class="cartSection">
@@ -19,23 +21,21 @@
       <div class="cartHeader">
         <span>Korpa</span>
       </div>
-      <div
-        class="cartWrapper"
-        v-if="!cartProducts || cartProducts.length">
+      <div class="cartWrapper" v-if="!cartProducts || cartProducts.length">
         <div class="cartContainer">
           <div class="cartTop">
             <ul class="cartList">
               <li
                 class="cartItem"
                 v-for="item in cartProducts"
-                :key="item.name">
+                :key="item.name"
+              >
                 <div class="productContainer">
                   <div
                     class="productImage"
-                    @click="router.push(`/singlePerfum/${item.id}`)">
-                    <img
-                      :src="item.image"
-                      alt="product image" />
+                    @click="router.push(`/singlePerfum/${item.id}`)"
+                  >
+                    <img :src="item.image" alt="product image" />
                   </div>
                   <div class="productInfo">
                     <div class="productBrand">
@@ -50,7 +50,8 @@
                                 'Da li ste sigurni da želite ukloniti parfem iz korpe?',
                               parfumeID: item.id,
                             })
-                          ">
+                          "
+                        >
                         </i>
                       </div>
                     </div>
@@ -65,13 +66,15 @@
                       <div class="productVolumeButtons">
                         <button
                           class="quantityBtn"
-                          @click="handleUserActions('minus', item.id)">
+                          @click="handleUserActions('minus', item.id)"
+                        >
                           -
                         </button>
                         <span class="quantityDisplay">{{ item.quantity }}</span>
                         <button
                           class="quantityBtn"
-                          @click="handleUserActions('plus', item.id)">
+                          @click="handleUserActions('plus', item.id)"
+                        >
                           +
                         </button>
                       </div>
@@ -84,12 +87,11 @@
           <OrderForm
             ref="orderFormRef"
             :perfumesToOrder="cartProducts"
-            :totalAmount="totalAmount"></OrderForm>
+            :totalAmount="totalAmount"
+          ></OrderForm>
         </div>
         <!-- cart Pricing -->
-        <div
-          class="cartPricing"
-          ref="pricingSection">
+        <div class="cartPricing" ref="pricingSection">
           <div class="pricingTop">
             <div class="pricingTitle">
               <h3>Pregled porudžbine</h3>
@@ -100,7 +102,8 @@
             </div>
             <div
               class="pricingDelivery"
-              :class="{ freeShipping: noShippingAmount > 10000 }">
+              :class="{ freeShipping: noShippingAmount > 10000 }"
+            >
               <span>Isporuka:</span>
               <p>390 RSD</p>
             </div>
@@ -109,33 +112,25 @@
             <span>Ukupno za plaćanje:</span>
             <h3>{{ totalAmount }} RSD</h3>
           </div>
-          <div
-            class="termsOfUse"
-            :class="{ invalid: termsOfUse === false }">
-            <input
-              type="checkbox"
-              id="terms"
-              v-model="termsOfUse" />
+          <div class="termsOfUse" :class="{ invalid: termsOfUse === false }">
+            <input type="checkbox" id="terms" v-model="termsOfUse" />
             <label for="terms"
-              >Obeleži da ste pričitali i da ste saglasni sa
+              >Obeležite da ste pročitali i da ste saglasni sa
               <span @click="toggleTermsOfUse">Uslovima korišćenja</span></label
             >
           </div>
-          <GlobalButton
-            :text="'Naruči'"
-            @click="handleSubmit" />
+          <GlobalButton :text="'Naruči'" @click="handleSubmit" />
         </div>
       </div>
-      <div
-        v-else
-        class="emptyCart">
+      <div v-else class="emptyCart">
         <div class="emptyTitle">
           <h1>Vaša korpa je prazna</h1>
         </div>
         <div>
           <GlobalButton
             :text="'Pogledaj ponudu'"
-            @click="router.push('/wholeOffer')"></GlobalButton>
+            @click="router.push('/wholeOffer')"
+          ></GlobalButton>
         </div>
       </div>
     </main>

@@ -9,7 +9,10 @@
         <p v-if="visible">
           {{ landingDesc }}
         </p>
-        <GlobalButton v-if="visible"></GlobalButton>
+        <GlobalButton
+          v-if="visible"
+          @click="router.push('/wholeOffer')"
+        ></GlobalButton>
       </div>
 
       <div class="landingButtons">
@@ -73,6 +76,9 @@ import strongerImage from "../assets/images/background/stronger.jpg";
 import erosImage from "../assets/images/background/versaga.png";
 
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const imageMap = {
   chanel: chanelImage,
