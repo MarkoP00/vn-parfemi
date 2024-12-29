@@ -1,11 +1,7 @@
 <template>
   <header ref="headerRef">
-    <div
-      class="logo"
-      @click="() => router.push('/mainPage')">
-      <img
-        src="/src/assets/images/logo/logo.png"
-        alt="" />
+    <div class="logo" @click="() => router.push('/mainPage')">
+      <img src="/src/assets/images/logo/logo.png" alt="" />
     </div>
 
     <!-- <div v-if="allPerfumes">
@@ -25,13 +21,13 @@
       <li @click="() => router.push('/cart')">
         <span>Korpa</span>
       </li>
-      <li
-        @click="toggleSavedPerfumesWindow"
-        class="saveIndicator">
+      <li @click="toggleSavedPerfumesWindow" class="saveIndicator">
         <button>
           <i class="fa-solid fa-heart"></i>
         </button>
-        <p v-if="savedPerfumes.length">{{ savedPerfumes.length }}</p>
+        <p v-if="Array.isArray(savedPerfumes) && savedPerfumes.length > 0">
+          {{ savedPerfumes.length }}
+        </p>
       </li>
     </ul>
     <div class="mobileHamburger">
@@ -39,19 +35,17 @@
         <i
           v-if="!hamburgerMenuVisible"
           class="fa-solid fa-bars"
-          @click="toggleHamburger"></i>
-        <i
-          v-else
-          class="fa-solid fa-xmark"
-          @click="toggleHamburger"></i>
+          @click="toggleHamburger"
+        ></i>
+        <i v-else class="fa-solid fa-xmark" @click="toggleHamburger"></i>
         <div class="mobileSavedPerfumes">
-          <li
-            @click="toggleSavedPerfumesWindow"
-            class="saveIndicator">
+          <li @click="toggleSavedPerfumesWindow" class="saveIndicator">
             <button>
               <i class="fa-solid fa-heart"></i>
             </button>
-            <p v-if="savedPerfumes.length">{{ savedPerfumes.length }}</p>
+            <p v-if="Array.isArray(savedPerfumes) && savedPerfumes.length > 0">
+              {{ savedPerfumes.length }}
+            </p>
           </li>
         </div>
       </div>
@@ -59,7 +53,8 @@
         <div
           class="mobileList"
           v-if="hamburgerMenuVisible"
-          :class="{ menuVisible: hamburgerMenuVisible }">
+          :class="{ menuVisible: hamburgerMenuVisible }"
+        >
           <ul>
             <li @click="() => router.push('/mainPage')">
               <span>Početna</span>
@@ -79,7 +74,8 @@
                   navigation(
                     'https://www.facebook.com/profile.php?id=100008318868991'
                   )
-                ">
+                "
+              >
                 <span><i class="fa-brands fa-facebook"></i></span>
               </li>
 
@@ -91,7 +87,8 @@
               <li
                 @click="
                   navigation('https://www.youtube.com/@aleksandarpetrovic3531')
-                ">
+                "
+              >
                 <span>
                   <i class="fab fa-youtube yt"></i>
                 </span>
@@ -102,25 +99,20 @@
       </Transition>
     </div>
 
-    <div
-      class="savedPerfumesWrapper"
-      v-if="savedPerfumesVisible">
-      <ul v-if="!savedPerfumes || savedPerfumes.length">
+    <div class="savedPerfumesWrapper" v-if="savedPerfumesVisible">
+      <ul v-if="Array.isArray(savedPerfumes) && savedPerfumes.length > 0">
         <li
           v-for="item in savedPerfumes"
           :key="item.id"
-          @click="router.push(`/singlePerfum/${item.id}`)">
+          @click="router.push(`/singlePerfum/${item.id}`)"
+        >
           <div class="singlePerfumeImage">
-            <img
-              :src="item.image"
-              alt="" />
+            <img :src="item.image" alt="" />
           </div>
           <div class="singlePerfumeData">
             <div class="singleBrand">
               <h3>{{ item.brand }}</h3>
-              <div
-                class="likeButton"
-                @click.stop>
+              <div class="likeButton" @click.stop>
                 <button @click="removeFromSaved(item.id)">
                   <i class="fa-solid fa-heart"></i>
                 </button>
@@ -161,6 +153,8 @@ function toggleHamburger() {
 }
 
 function toggleSavedPerfumesWindow() {
+  hamburgerMenuVisible.value = false;
+
   savedPerfumes.value = JSON.parse(localStorage.getItem("savedPerfumes"));
   savedPerfumesVisible.value = !savedPerfumesVisible.value;
 }
@@ -571,9 +565,15 @@ header.sticky .mobileList {
   }
   .savedPerfumesWrapper {
     width: 350px;
+    left: 6%;
   }
   .savedPerfumesWrapper ul {
     padding: 0;
+  }
+}
+@media (max-width: 376px) {
+  .savedPerfumesWrapper {
+    left: 3%;
   }
 }
 @media (max-width: 325px) {

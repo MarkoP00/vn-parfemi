@@ -2,16 +2,26 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default function addToCart(parfumesArray, parfumeID, isRef = false) {
-  
   const parfumesArrayValue = isRef ? parfumesArray.value : parfumesArray;
 
-  let storageParfumes = JSON.parse(localStorage.getItem("cartItems")) || [];
+  let storageParfumes;
+
+  try {
+    storageParfumes = JSON.parse(localStorage.getItem("cartItems")) || [];
+    if (!Array.isArray(storageParfumes)) {
+      callToastInFunction("Doslo je do greske", "error");
+      return;
+    }
+  } catch (error) {
+    console.warn("Resetting cartItems due to invalid data:", error.message);
+    storageParfumes = [];
+  }
 
   const foundItem = storageParfumes.find((item) => item.id === parfumeID);
 
   if (foundItem) {
     foundItem.quantity += 1;
-    callInfoToast();
+    callToastInFunction("Parfem je dodat u korpu!", "info");
   } else {
     const newItem = parfumesArrayValue.find((item) => item.id === parfumeID);
     if (!newItem) {
@@ -20,14 +30,15 @@ export default function addToCart(parfumesArray, parfumeID, isRef = false) {
     }
     newItem.quantity = 1;
     storageParfumes.push(newItem);
-    callInfoToast();
+    callToastInFunction("Parfem je dodat u korpu!", "info");
   }
+
   localStorage.setItem("cartItems", JSON.stringify(storageParfumes));
 }
 
-function callInfoToast() {
-  toast.dark("Parfem dodat u korpu!", {
-    type: "info",
+function callToastInFunction(message, type) {
+  toast.dark(message, {
+    type: type,
     class: "Toastify__toast-container--top-custom",
     autoClose: 2500,
   });

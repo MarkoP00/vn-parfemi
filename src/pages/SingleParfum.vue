@@ -20,7 +20,8 @@
                 : singleParfume.gender === 'female'
                 ? '#FF69B4'
                 : '#32CD32',
-          }">
+          }"
+        >
           {{
             singleParfume.gender === "unisex"
               ? "Unisex"
@@ -30,9 +31,7 @@
       </div>
       <div class="singleParfumeInfo">
         <div class="singleParfumeImage">
-          <img
-            :src="singleParfume.image"
-            alt="Perfume bottle" />
+          <img :src="singleParfume.image" alt="Perfume bottle" />
         </div>
         <div class="singleParfumeNotes">
           <p class="notesHeader">Mirisne note</p>
@@ -41,7 +40,8 @@
               v-for="note in singleParfume.notes"
               :key="note"
               :style="{ backgroundColor: getNoteColor(note) }"
-              class="noteItem">
+              class="noteItem"
+            >
               {{ note }}
             </li>
           </ul>
@@ -55,7 +55,8 @@
               </div>
               <div
                 class="singleParfumeSalePrice"
-                v-if="singleParfume.salePrice">
+                v-if="singleParfume.salePrice"
+              >
                 <span>Nova cena: {{ singleParfume.salePrice }} RSD</span>
               </div>
             </div>
@@ -63,16 +64,13 @@
             <div class="singleParfumeButtons">
               <GlobalButton
                 :text="'Dodaj u korpu'"
-                @click="handleAddToCart(singleParfume.id)"></GlobalButton>
+                @click="handleAddToCart(singleParfume.id)"
+              ></GlobalButton>
               <div class="likeButton">
-                <button
-                  @click="toggleSave"
-                  v-if="!perfumeIsSaved">
+                <button @click="toggleSave" v-if="!perfumeIsSaved">
                   <i class="fa-regular fa-heart"></i>
                 </button>
-                <button
-                  @click="toggleSave"
-                  v-if="perfumeIsSaved">
+                <button @click="toggleSave" v-if="perfumeIsSaved">
                   <i class="fa-solid fa-heart"></i>
                 </button>
               </div>
@@ -88,7 +86,8 @@
 
       <CardSlider
         :parfumes="recommendedParfumes"
-        @add-to-favorites="handleSaving"></CardSlider>
+        @add-to-favorites="handleSaving"
+      ></CardSlider>
     </div>
   </section>
 </template>

@@ -19,19 +19,22 @@
           :firstMessage="'Ustedite do'"
           :secondMessage="'na Muške parfeme'"
           :discount="'20%'"
-          @click="router.push('/parfumesDiscount/male')"></GlobalCard>
+          @click="router.push('/parfumesDiscount/male')"
+        ></GlobalCard>
         <GlobalCard
           :imageSRC="'https://images.unsplash.com/photo-1701291927826-c7775869d822?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZ1bWVzfGVufDB8fDB8fHww'"
           :firstMessage="'Ustedite do'"
           :secondMessage="'na Ženske parfeme'"
           :discount="'25%'"
-          @click="router.push('/parfumesDiscount/female')"></GlobalCard>
+          @click="router.push('/parfumesDiscount/female')"
+        ></GlobalCard>
         <GlobalCard
           :imageSRC="'https://i.pinimg.com/736x/90/e8/cc/90e8ccb1212d59b142c1c33c20fe9b53.jpg'"
           :firstMessage="'Ustedite do'"
           :secondMessage="'na Unisex parfeme'"
           :discount="'20%'"
-          @click="router.push('/parfumesDiscount/unisex')"></GlobalCard>
+          @click="router.push('/parfumesDiscount/unisex')"
+        ></GlobalCard>
       </div>
       <!-- filter buttons -->
       <div class="filterButtons">
@@ -40,12 +43,14 @@
             resetFilter();
             genderFilter = 'all';
           "
-          :class="{ genderFilter: genderFilter === 'all' }">
+          :class="{ genderFilter: genderFilter === 'all' }"
+        >
           Svi parfemi
         </button>
         <button
           @click="filterFunction('male')"
-          :class="{ genderFilter: genderFilter === 'male' }">
+          :class="{ genderFilter: genderFilter === 'male' }"
+        >
           Muški parfemi
         </button>
         <button
@@ -53,7 +58,8 @@
             filterFunction('female');
             genderFilter = 'female';
           "
-          :class="{ genderFilter: genderFilter === 'female' }">
+          :class="{ genderFilter: genderFilter === 'female' }"
+        >
           Ženski parfemi
         </button>
         <button
@@ -61,26 +67,27 @@
             filterFunction('unisex');
             genderFilter = 'unisex';
           "
-          :class="{ genderFilter: genderFilter === 'unisex' }">
+          :class="{ genderFilter: genderFilter === 'unisex' }"
+        >
           Unisex parfemi
         </button>
         <div class="filterDrop">
           <DropMenu
             @filterEmit="filterByBrand"
-            @resetBrandEmit="resetBrand"></DropMenu>
+            @resetBrandEmit="resetBrand"
+          ></DropMenu>
         </div>
         <div class="mobileFilter">
           <MobileDropMenu
             @filterEmit="filterByBrand"
-            @resetBrandEmit="resetBrand"></MobileDropMenu>
+            @resetBrandEmit="resetBrand"
+          ></MobileDropMenu>
         </div>
       </div>
       <!-- product list -->
       <div class="productListWrapper">
         <ul class="productList">
-          <li
-            v-for="item in filteredParfumes"
-            :key="item.id">
+          <li v-for="item in filteredParfumes" :key="item.id">
             <ProductCard
               :name="item.name"
               :brand="item.brand"
@@ -95,7 +102,8 @@
               :id="item.id"
               @add-to-cart="handleAddToCart"
               @navigate-to-single="navigateFunction"
-              @add-to-favorites="handleAddToFavorites" />
+              @add-to-favorites="handleAddToFavorites"
+            />
           </li>
         </ul>
       </div>
@@ -242,6 +250,7 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
 }
 .wholeOfferTitle span,
 .wholeOfferTitle i {
@@ -359,6 +368,13 @@ onMounted(() => {
   .filterDrop {
     top: 120%;
     right: 2%;
+  }
+}
+
+@media (max-width: 420px) {
+  .wholeOfferTitle span {
+    white-space: nowrap;
+    font-size: 1.5rem;
   }
 }
 @media (max-width: 375px) {
