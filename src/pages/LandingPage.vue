@@ -1,9 +1,7 @@
 <template>
   <section class="landingSection">
     <div class="landingImage">
-      <img
-        :src="`/src/assets/images/background/${imageSRC}`"
-        alt="" />
+      <img :src="imageSRC" alt="Parfem pozadina" />
     </div>
     <main class="landingMain">
       <div class="landingText">
@@ -18,43 +16,47 @@
         <button
           @click="
             handleChange(
-              'chanel.jpg',
+              'chanel',
               'chanel',
               'Doživite Luksuz u svakom dahu',
               'Probudite čula i dopustite sebi da zasijate uz mirise stvorene za ljubitelje elegancije i stila'
             )
           "
-          :class="{ active: activeButton === 'chanel' }"></button>
+          :class="{ active: activeButton === 'chanel' }"
+        ></button>
         <button
           @click="
             handleChange(
-              'sauvagescreen.png',
+              'sauvage',
               'sauvage',
               'Dior Sauvage',
               'Unesite samopouzdanje u svoj životni stil uz miris koji zrači snagom i autoritetom'
             )
           "
-          :class="{ active: activeButton === 'sauvage' }"></button>
+          :class="{ active: activeButton === 'sauvage' }"
+        ></button>
         <button
           @click="
             handleChange(
-              'stronger.jpg',
+              'stronger',
               'stronger',
               'Emporio Armani Stronger With You',
               'Prigrlite snagu ljubavi i strasti sa mirisom koji odražava hrabrost i slobodan duh'
             )
           "
-          :class="{ active: activeButton === 'stronger' }"></button>
+          :class="{ active: activeButton === 'stronger' }"
+        ></button>
         <button
           @click="
             handleChange(
-              'versaga.png',
+              'eros',
               'eros',
               'Versace Eros – Za one koji žive sa strašću',
               'Uronite u svet senzualnosti i snage uz miris inspirisan mitologijom i pravom muškošću'
             )
           "
-          :class="{ active: activeButton === 'eros' }"></button>
+          :class="{ active: activeButton === 'eros' }"
+        ></button>
       </div>
       <SocialButtons></SocialButtons>
     </main>
@@ -64,23 +66,37 @@
 <script setup>
 import SocialButtons from "../components/SocialButtons.vue";
 import GlobalButton from "../global/FancyButton.vue";
+
+import chanelImage from "../assets/images/background/chanel.jpg";
+import sauvageImage from "../assets/images/background/sauvagescreen.png";
+import strongerImage from "../assets/images/background/stronger.jpg";
+import erosImage from "../assets/images/background/versaga.png";
+
 import { ref } from "vue";
 
-const imageSRC = ref("chanel.jpg");
+const imageMap = {
+  chanel: chanelImage,
+  sauvage: sauvageImage,
+  stronger: strongerImage,
+  eros: erosImage,
+};
+
+const visible = ref(true);
+
+const imageSRC = ref(imageMap.chanel);
 const activeButton = ref("chanel");
 const landingTitle = ref("Doživite Luksuz u svakom dahu");
 const landingDesc = ref(
   "Probudite čula i dopustite sebi da zasijate uz mirise stvorene za ljubitelje elegancije i stila"
 );
-const visible = ref(true);
 
-function handleChange(imageSource, displayedButton, newTitle, newDesc) {
+function handleChange(imageKey, displayedButton, newTitle, newDesc) {
   visible.value = false;
   setTimeout(() => {
     visible.value = true;
   }, 200);
 
-  imageSRC.value = imageSource;
+  imageSRC.value = imageMap[imageKey];
   activeButton.value = displayedButton;
 
   landingTitle.value = newTitle;
